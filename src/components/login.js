@@ -1,22 +1,40 @@
-import { useState } from "react";
-import {useDispatch} from "react-redux"
-import {login} from "../features/userSlice"
+import { useState,useEffect } from "react";
+import {useDispatch,useSelector} from "react-redux"
+import { Redirect } from "react-router";
+import {apiUrls,init} from "../features/apiSlice"
+import { authenticate,loginSlice,loginStates } from "../features/loginSlice";
+import {FetchUserDetails} from '../api/userAction'
+
 const Login = () => {
 
     const [email,setEmail] = useState(null)
     const [password,setPassword] = useState(null)
-
     const dispatch = useDispatch();
+    
+    const isAuth = useSelector(loginStates).isAuth
+
+
+
+    const api = useSelector(apiUrls)
+ 
+
 
     const handleSubmit = ()=> {
-        dispatch(login({
-            email:email,
-            password:password,
-            loggedIn:true,
-        }))
+        dispatch(authenticate({'username':email,'password':password}))
     }
 
+        !isAuth && (
+        localStorage.getItem('token') ?  FetchUserDetails() : console.log('tokenNotFound')
+        )
+
+
     return ( 
+        <>
+        { isAuth  ? <Redirect
+            to={{
+                pathname: "/",
+            }}
+        /> : 
         <>
         <p>Login Page</p>
         <div>
@@ -30,6 +48,9 @@ const Login = () => {
 
         <button onClick={handleSubmit} >Login</button>
         </>
+
+    }
+    </>
      );
 }
  

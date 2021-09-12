@@ -1,17 +1,18 @@
 import {useSelector,useDispatch} from 'react-redux'
-import { logout,selectUser } from '../features/userSlice'
+import { loginStates,logoutUser } from '../features/loginSlice'
+
 const Logout = () =>  {
 
-    const user = useSelector(selectUser)
+    // const user_id = useSelector(loginStates).user_id
     const dispatch = useDispatch()
 
     const logoff =()=> {
         console.log('wow')
-        dispatch(logout())
+        dispatch(logoutUser())
     }
     return ( 
     <>
-    <h1>Welcome {user.email}</h1>
+    <h1>Welcome </h1>
     <button onClick={logoff} >Logout</button>
     </>        
      );
