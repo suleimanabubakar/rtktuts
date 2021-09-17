@@ -10,7 +10,7 @@ export const authenticate = createAsyncThunk('auth/authenticate', async (data) =
     try {
         const res = await axios.post(process.env.REACT_APP_API_URL+'auth/token/',data)
         localStorage.setItem('token',res.data.key)
-        return res.data.user_id
+        return res.data.user_id 
     } catch(error) {
         throw Error(error)
     }

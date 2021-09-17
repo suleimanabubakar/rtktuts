@@ -23,6 +23,8 @@ const Login = () => {
         dispatch(authenticate({'username':email,'password':password}))
     }
 
+
+
         !isAuth && (
         localStorage.getItem('token') ?  FetchUserDetails() : console.log('tokenNotFound')
         )
